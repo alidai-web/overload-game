@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Game Library</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    min-height:100vh;
+    background:#08080d;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    padding:25px 15px 40px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+}
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+header h1{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+header p{
+    margin-top:7px;
+    color:#888;
+    font-size:14px;
+}
+
+/* GAMES */
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.game-card{
+    background:#111118;
+    border:1px solid #24242f;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    transition:.2s;
+}
+
+.game-card:active{
+    transform:scale(.97);
+}
+
+/* COVER */
+
+.cover{
+    width:100%;
+    aspect-ratio:1/1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+/* OVERLOAD COVER */
+
+.overload-cover{
+    background:
+        radial-gradient(circle at 50% 45%,#ff3b30 0%,#941c1c 18%,#300b0b 48%,#080808 80%);
+}
+
+.overload-cover::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border:4px solid rgba(255,60,50,.5);
+    border-radius:50%;
+    box-shadow:
+        0 0 20px #ff3025,
+        0 0 60px rgba(255,30,20,.6);
+    animation:pulse 2s infinite;
+}
+
+.overload-cover::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 5px,
+            rgba(255,255,255,.025) 6px
+        );
+}
+
+.cover-content{
+    position:relative;
+    z-index:2;
+}
+
+.overload-cover .cover-content h2{
+    font-size:38px;
+    font-weight:1000;
+    letter-spacing:3px;
+    text-shadow:
+        0 0 10px #ff2d20,
+        0 0 30px #ff0000;
+}
+
+.overload-cover .cover-content span{
+    display:block;
+    margin-top:5px;
+    font-size:11px;
+    letter-spacing:4px;
+    color:#ffaaa5;
+}
+
+/* BIRDY RUSH COVER */
+
+.birdy-cover{
+    background:
+        linear-gradient(
+            180deg,
+            #55cfff 0%,
+            #9ce8ff 48%,
+            #79d85b 49%,
+            #399d38 100%
+        );
+}
+
+.birdy-cover::before{
+    content:"☁";
+    position:absolute;
+    top:20px;
+    left:15px;
+    font-size:50px;
+    color:white;
+    opacity:.8;
+}
+
+.birdy-cover::after{
+    content:"☁";
+    position:absolute;
+    top:65px;
+    right:10px;
+    font-size:45px;
+    color:white;
+    opacity:.7;
+}
+
+.birdy-character{
+    font-size:100px;
+    position:relative;
+    z-index:2;
+    filter:drop-shadow(0 8px 4px rgba(0,0,0,.3));
+}
+
+.birdy-title{
+    position:absolute;
+    bottom:18px;
+    left:0;
+    right:0;
+    z-index:3;
+}
+
+.birdy-title h2{
+    font-size:27px;
+    font-weight:1000;
+    color:white;
+    text-shadow:
+        3px 3px 0 #28712b,
+        0 0 10px rgba(0,0,0,.4);
+}
+
+/* INFO */
+
+.info{
+    padding:15px;
+}
+
+.info h3{
+    font-size:19px;
+    margin-bottom:5px;
+}
+
+.info p{
+    color:#8d8d98;
+    font-size:12px;
+    line-height:1.4;
+    min-height:34px;
+}
+
+/* PLAY BUTTON */
+
+.play{
+    display:block;
+    width:100%;
+    margin-top:13px;
+    padding:12px 10px;
+    border:0;
+    border-radius:10px;
+    background:#fff;
+    color:#08080d;
+    text-align:center;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.play:active{
+    transform:scale(.95);
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(.9);
+        opacity:.5;
+    }
+    50%{
+        transform:scale(1.08);
+        opacity:1;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    body{
+        padding:20px 12px 30px;
+    }
+
+    header h1{
+        font-size:27px;
+    }
+
+    .games{
+        grid-template-columns:1fr;
+        gap:16px;
+    }
+
+    .game-card{
+        border-radius:17px;
+    }
+
+    .cover{
+        aspect-ratio:16/9;
+    }
+
+    .overload-cover .cover-content h2{
+        font-size:42px;
+    }
+
+    .birdy-character{
+        font-size:85px;
+    }
+}
+
+@media(min-width:501px){
+
+    .cover{
+        aspect-ratio:16/10;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🎮 GAME LIBRARY</h1>
+        <p>My Games</p>
+    </header>
+
+    <main class="games">
+
+        <!-- OVERLOAD -->
+
+        <div class="game-card">
+
+            <div class="cover overload-cover">
+
+                <div class="cover-content">
+                    <h2>OVERLOAD</h2>
+                    <span>CAN YOU HANDLE THE PRESSURE?</span>
+                </div>
+
+            </div>
+
+            <div class="info">
+                <h3>OVERLOAD</h3>
+                <p>Pressure, reaction and survival.</p>
+
+                <a class="play" href="overload.html">
+                    ▶ PLAY
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- BIRDY RUSH -->
+
+        <div class="game-card">
+
+            <div class="cover birdy-cover">
+
+                <div class="birdy-character">
+                    🐦
+                </div>
+
+                <div class="birdy-title">
+                    <h2>BIRDY RUSH</h2>
+                </div>
+
+            </div>
+
+            <div class="info">
+                <h3>BIRDY RUSH</h3>
+                <p>Fly, avoid obstacles and survive.</p>
+
+                <a class="play" href="birdy-rush.html">
+                    ▶ PLAY
+                </a>
+            </div>
+
+        </div>
+<!-- SURVIVE -->
+
+<div class="game-card">
+
+<div class="cover overload-cover">
+
+<div class="cover-content">
+
+<h2>SURVIVE</h2>
+
+<span>CAN YOU SURVIVE?</span>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>SURVIVE</h3>
+
+<p>Fight, survive and become stronger.</p>
+
+<a class="play" href="survive/">
+▶ PLAY
+</a>
+
+</div>
+
+</div>
+    </main>
+
+</div>
+
+</body>
+</html>
