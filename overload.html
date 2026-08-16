@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7412418455195467"
+     crossorigin="anonymous"></script>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>OVERLOAD V18.8</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#030305;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    touch-action:none;
+}
+
+#game{
+    position:relative;
+    width:100%;
+    max-width:720px;
+    height:100dvh;
+    min-height:560px;
+    margin:auto;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 40%,#29293b 0,#111119 40%,#020203 85%);
+}
+
+.grid{
+    position:absolute;
+    width:220%;
+    height:220%;
+    left:-60%;
+    top:-40%;
+    opacity:.28;
+    background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:42px 42px;
+    transform:perspective(450px) rotateX(60deg);
+    animation:gridMove 2.2s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        transform:perspective(450px) rotateX(60deg) translateY(0);
+    }
+    to{
+        transform:perspective(450px) rotateX(60deg) translateY(42px);
+    }
+}
+
+.vignette{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:radial-gradient(circle,transparent 25%,rgba(0,0,0,.86));
+}
+
+/* =========================
+   TOP GAME INFO
+========================= */
+
+#top{
+    position:absolute;
+    z-index:30;
+    top:10px;
+    left:10px;
+    right:10px;
+
+    display:flex;
+    justify-content:space-between;
+    gap:7px;
+}
+
+.info{
+    min-width:82px;
+    padding:8px 7px;
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+
+    background:rgba(0,0,0,.5);
+
+    text-align:center;
+
+    color:#777;
+    font-size:9px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.info b{
+    color:#fff;
+    font-size:12px;
+}
+
+/* =========================
+   START LANGUAGE
+========================= */
+
+#startLanguage{
+    position:absolute;
+    top:20px;
+    right:20px;
+    z-index:30;
+}
+
+.langBtn{
+    border:1px solid #383842;
+    border-radius:10px;
+    padding:9px 12px;
+
+    background:rgba(0,0,0,.65);
+    color:#fff;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+.langMenu{
+    display:none;
+
+    position:absolute;
+    top:43px;
+    right:0;
+
+    width:150px;
+    padding:5px;
+
+    border:1px solid #33333c;
+    border-radius:12px;
+
+    background:#111117;
+    box-shadow:0 12px 35px rgba(0,0,0,.6);
+}
+
+.langMenu.show{
+    display:block;
+}
+
+.langOption{
+    display:block;
+    width:100%;
+
+    padding:11px;
+
+    border:0;
+    border-radius:8px;
+
+    background:transparent;
+    color:#aaa;
+
+    text-align:left;
+    font-size:12px;
+}
+
+.langOption:active{
+    background:#292933;
+    color:#fff;
+}
+
+/* =========================
+   CENTER
+========================= */
+
+#center{
+    position:absolute;
+    top:50%;
+    left:50%;
+
+    width:100%;
+
+    transform:translate(-50%,-50%);
+
+    padding:10px;
+
+    text-align:center;
+}
+
+#levelText{
+    margin-bottom:8px;
+
+    color:#777;
+
+    font-size:9px;
+    font-weight:bold;
+
+    letter-spacing:4px;
+}
+
+#instruction{
+    min-height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:23px;
+    font-weight:1000;
+    line-height:1.05;
+
+    text-shadow:0 0 22px rgba(255,255,255,.12);
+}
+
+#sub{
+    min-height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:4px 0;
+
+    color:#aaa;
+
+    font-size:27px;
+    font-weight:1000;
+}
+
+#arena{
+    position:relative;
+    width:100%;
+    height:285px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.control{
+    position:absolute;
+    display:none;
+}
+
+#mainButton{
+    width:150px;
+    height:150px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border:7px solid #420000;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            #ff9999,
+            #e50000 38%,
+            #700000 70%,
+            #220000
+        );
+
+    color:#fff;
+
+    box-shadow:
+        0 0 35px rgba(255,0,0,.48),
+        0 11px 0 #170000,
+        inset 0 8px 12px rgba(255,255,255,.18);
+
+    font-size:17px;
+    font-weight:1000;
+}
+
+#mainButton:active{
+    transform:translate(-50%,-50%) scale(.88);
+}
+
+.choice{
+    top:50%;
+
+    width:145px;
+    height:72px;
+
+    transform:translateY(-50%);
+
+    border:2px solid rgba(255,255,255,.2);
+    border-radius:17px;
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:1000;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
+}
+
+.choice:active{
+    transform:translateY(-50%) scale(.94);
+}
+
+#oddBtn,
+#redBtn{
+    left:calc(50% - 165px);
+}
+
+#evenBtn,
+#greenBtn{
+    right:calc(50% - 165px);
+}
+
+#oddBtn{
+    background:linear-gradient(#ef4545,#700000);
+}
+
+#evenBtn{
+    background:linear-gradient(#35dc70,#087a32);
+}
+
+#redBtn{
+    background:linear-gradient(#ff4545,#760000);
+}
+
+#greenBtn{
+    background:linear-gradient(#35e66f,#087b32);
+}
+
+#colorTarget{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:115px;
+    height:115px;
+
+    display:none;
+
+    border-radius:50%;
+
+    border:5px solid rgba(255,255,255,.8);
+}
+
+.targetRed{
+    background:#e60000;
+
+    box-shadow:
+        0 0 45px rgba(255,0,0,.7);
+}
+
+.targetGreen{
+    background:#00d84d;
+
+    box-shadow:
+        0 0 45px rgba(0,255,80,.7);
+}
+
+/* =========================
+   TIMER
+========================= */
+
+#timerWrap{
+    width:285px;
+    max-width:82%;
+
+    height:7px;
+
+    margin:5px auto 0;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#25252d;
+}
+
+#timer{
+    width:100%;
+    height:100%;
+
+    background:#ff3030;
+}
+
+#status{
+    height:18px;
+    margin-top:5px;
+
+    color:#777;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+/* =========================
+   COMBO
+========================= */
+
+#combo{
+    position:absolute;
+    z-index:100;
+
+    top:78px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    opacity:0;
+
+    color:#ff4545;
+
+    font-size:20px;
+    font-weight:1000;
+
+    pointer-events:none;
+}
+
+.comboAnim{
+    animation:combo .55s ease-out;
+}
+
+@keyframes combo{
+    0%{
+        opacity:0;
+        transform:translateX(-50%) scale(.4);
+    }
+
+    35%{
+        opacity:1;
+        transform:translateX(-50%) scale(1.3);
+    }
+
+    100%{
+        opacity:0;
+        transform:translateX(-50%) scale(1);
+    }
+}
+
+/* =========================
+   FLASH
+========================= */
+
+#flash{
+    position:absolute;
+    inset:0;
+
+    z-index:200;
+
+    pointer-events:none;
+
+    opacity:0;
+}
+
+.goodFlash{
+    animation:goodFlash .25s;
+}
+
+.badFlash{
+    animation:badFlash .28s;
+}
+
+@keyframes goodFlash{
+    0%{
+        opacity:.25;
+        background:#fff;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+@keyframes badFlash{
+    0%{
+        opacity:.6;
+        background:red;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+#startScreen{
+    position:absolute;
+    inset:0;
+
+    z-index:400;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:20px;
+
+    background:
+        radial-gradient(circle at 50% 40%,#30304b,#050507 70%);
+}
+
+.logo{
+    font-size:45px;
+
+    font-weight:1000;
+
+    letter-spacing:6px;
+
+    text-shadow:
+        0 0 20px rgba(255,0,0,.9),
+        0 0 60px rgba(255,0,0,.45);
+}
+
+.version{
+    margin:8px 0 35px;
+
+    color:#666;
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    font-weight:bold;
+}
+
+.startBtn,
+.actionBtn{
+    border:0;
+    border-radius:14px;
+
+    padding:16px 40px;
+
+    background:#fff;
+    color:#050505;
+
+    font-size:14px;
+    font-weight:1000;
+}
+
+.startStats{
+    display:flex;
+
+    gap:7px;
+
+    margin-top:22px;
+}
+
+.startStat{
+    padding:8px 10px;
+
+    border-radius:9px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    color:#777;
+
+    font-size:9px;
+}
+
+.tip{
+    margin-top:20px;
+
+    color:#555;
+
+    font-size:10px;
+}
+
+.creator{
+    display:inline-block;
+
+    margin-top:8px;
+
+    color:#777;
+
+    letter-spacing:3px;
+
+    font-weight:bold;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+#overlay{
+    position:absolute;
+    inset:0;
+
+    z-index:350;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.9);
+
+    backdrop-filter:blur(15px);
+}
+
+#overlay.show{
+    display:flex;
+}
+
+.box{
+    width:90%;
+    max-width:410px;
+
+    padding:30px 20px;
+
+    border-radius:22px;
+
+    border:1px solid #33333d;
+
+    background:#111117;
+
+    text-align:center;
+
+    box-shadow:0 20px 80px rgba(0,0,0,.7);
+}
+
+.box h1{
+    margin-bottom:14px;
+    font-size:27px;
+}
+
+.box p{
+    color:#999;
+
+    line-height:1.7;
+
+    margin-bottom:20px;
+}
+
+#progress{
+    color:#777;
+
+    font-size:10px;
+
+    margin-bottom:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:680px){
+
+    .choice{
+        width:130px;
+    }
+
+    #oddBtn,
+    #redBtn{
+        left:calc(50% - 150px);
+    }
+
+    #evenBtn,
+    #greenBtn{
+        right:calc(50% - 150px);
+    }
+}
+
+@media(max-height:680px){
+
+    #arena{
+        height:230px;
+    }
+
+    #mainButton{
+        width:130px;
+        height:130px;
+    }
+
+    #colorTarget{
+        width:100px;
+        height:100px;
+    }
+
+    #instruction{
+        font-size:20px;
+    }
+
+    .logo{
+        font-size:37px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<div class="grid"></div>
+<div class="vignette"></div>
+
+<!-- GAME INFO -->
+<div id="top">
+
+    <div class="info">
+        <span id="levelLabel"></span>
+        <b id="level">1</b>/30
+    </div>
+
+    <div class="info" id="lives">
+        ❤️❤️❤️
+    </div>
+
+    <div class="info">
+        🪙 <b id="coins">0</b>
+    </div>
+
+</div>
+
+<div id="combo"></div>
+
+<!-- GAME -->
+<div id="center">
+
+    <div id="levelText">
+        OVERLOAD V18.8
+    </div>
+
+    <div id="instruction"></div>
+
+    <div id="sub"></div>
+
+    <div id="arena">
+
+        <button id="mainButton" class="control"></button>
+
+        <button id="oddBtn" class="choice control"></button>
+
+        <button id="evenBtn" class="choice control"></button>
+
+        <div id="colorTarget"></div>
+
+        <button id="redBtn" class="choice control"></button>
+
+        <button id="greenBtn" class="choice control"></button>
+
+    </div>
+
+    <div id="status"></div>
+
+    <div id="timerWrap">
+        <div id="timer"></div>
+    </div>
+
+</div>
+
+<div id="flash"></div>
+
+<!-- RESULT -->
+<div id="overlay">
+
+    <div class="box">
+
+        <h1 id="resultTitle"></h1>
+
+        <p id="resultText"></p>
+
+        <div id="progress"></div>
+
+        <button class="actionBtn" id="actionBtn"></button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<div id="startScreen">
+
+    <!-- LANGUAGE ONLY HERE -->
+    <div id="startLanguage">
+
+        <button class="langBtn" id="langBtn">
+            🌐 EN
+        </button>
+
+        <div class="langMenu" id="langMenu">
+
+            <button class="langOption" data-lang="en">
+                🇬🇧 English
+            </button>
+
+            <button class="langOption" data-lang="tr">
+                🇹🇷 Türkçe
+            </button>
+
+            <button class="langOption" data-lang="el">
+                🇬🇷 Ελληνικά
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="logo">
+        OVERLOAD
+    </div>
+
+    <div class="version">
+        V18.8 • FINAL EDITION
+    </div>
+
+    <button class="startBtn" id="startBtn">
+        START GAME
+    </button>
+
+    <div class="startStats">
+
+        <div class="startStat" id="statLevels">
+            30 LEVELS
+        </div>
+
+        <div class="startStat" id="statLives">
+            3 LIVES
+        </div>
+
+        <div class="startStat" id="statMode">
+            HARD MODE
+        </div>
+
+    </div>
+
+    <div class="tip">
+
+        <span id="tipText"></span>
+
+        <br>
+
+        <span class="creator">
+            by AliDai
+        </span>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+const LANG={
+
+en:{
+code:"EN",
+level:"LEVEL",
+start:"START GAME",
+again:"PLAY AGAIN",
+levels:"30 LEVELS",
+lives:"3 LIVES",
+hard:"HARD MODE",
+survive:"How fast can you survive?",
+press:"PRESS",
+wait:"WAIT",
+now:"NOW!",
+dont:"DON'T PRESS!",
+oddEven:"ODD OR EVEN?",
+odd:"ODD",
+even:"EVEN",
+match:"MATCH THE COLOR",
+red:"RED",
+green:"GREEN",
+memorize:"MEMORIZE",
+tap:"TAP!",
+wrong:"WRONG!",
+early:"TOO EARLY!",
+time:"TIME'S UP!",
+tooMany:"TOO MANY!",
+gameOver:"GAME OVER",
+master:"OVERLOAD MASTER",
+lost:"You lost all your lives.",
+complete:"You survived all 30 levels!",
+score:"Score",
+best:"Best Score",
+coins:"Coins",
+combo:"COMBO",
+final:"FINAL"
+},
+
+tr:{
+code:"TR",
+level:"SEVİYE",
+start:"OYUNA BAŞLA",
+again:"TEKRAR OYNA",
+levels:"30 SEVİYE",
+lives:"3 CAN",
+hard:"ZOR MOD",
+survive:"Ne kadar hızlı hayatta kalabilirsin?",
+press:"BAS",
+wait:"BEKLE",
+now:"ŞİMDİ!",
+dont:"BASMA!",
+oddEven:"TEK Mİ ÇİFT Mİ?",
+odd:"TEK",
+even:"ÇİFT",
+match:"RENKLE EŞLEŞTİR",
+red:"KIRMIZI",
+green:"YEŞİL",
+memorize:"EZBERLE",
+tap:"BAS!",
+wrong:"YANLIŞ!",
+early:"ÇOK ERKEN!",
+time:"SÜRE BİTTİ!",
+tooMany:"ÇOK FAZLA!",
+gameOver:"OYUN BİTTİ",
+master:"OVERLOAD USTASI",
+lost:"Tüm canlarını kaybettin.",
+complete:"30 seviyenin tamamını geçtin!",
+score:"Skor",
+best:"En İyi Skor",
+coins:"Jeton",
+combo:"KOMBO",
+final:"SON SEVİYE"
+},
+
+el:{
+code:"EL",
+level:"ΕΠΙΠΕΔΟ",
+start:"ΕΝΑΡΞΗ",
+again:"ΠΑΙΞΕ ΞΑΝΑ",
+levels:"30 ΕΠΙΠΕΔΑ",
+lives:"3 ΖΩΕΣ",
+hard:"ΔΥΣΚΟΛΗ ΛΕΙΤΟΥΡΓΙΑ",
+survive:"Πόσο γρήγορα μπορείς να επιβιώσεις;",
+press:"ΠΑΤΗΣΕ",
+wait:"ΠΕΡΙΜΕΝΕ",
+now:"ΤΩΡΑ!",
+dont:"ΜΗΝ ΠΑΤΗΣΕΙΣ!",
+oddEven:"ΠΕΡΙΤΤΟΣ Ή ΖΥΓΟΣ;",
+odd:"ΠΕΡΙΤΤΟΣ",
+even:"ΖΥΓΟΣ",
+match:"ΤΑΙΡΙΑΞΕ ΤΟ ΧΡΩΜΑ",
+red:"ΚΟΚΚΙΝΟ",
+green:"ΠΡΑΣΙΝΟ",
+memorize:"ΘΥΜΗΣΟΥ",
+tap:"ΠΑΤΗΣΕ!",
+wrong:"ΛΑΘΟΣ!",
+early:"ΠΟΛΥ ΝΩΡΙΣ!",
+time:"ΤΕΛΕΙΩΣΕ Ο ΧΡΟΝΟΣ!",
+tooMany:"ΠΟΛΛΑ!",
+gameOver:"ΤΕΛΟΣ ΠΑΙΧΝΙΔΙΟΥ",
+master:"OVERLOAD MASTER",
+lost:"Έχασες όλες τις ζωές σου.",
+complete:"Ολοκλήρωσες και τα 30 επίπεδα!",
+score:"Σκορ",
+best:"Καλύτερο Σκορ",
+coins:"Νομίσματα",
+combo:"COMBO",
+final:"ΤΕΛΙΚΟ"
+}
+
+};
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let lang=localStorage.getItem("overloadLang")||"en";
+
+let level=1;
+let lives=3;
+let score=0;
+let combo=0;
+
+let coins=
+Number(localStorage.getItem("overloadCoins"))||0;
+
+let best=
+Number(localStorage.getItem("overloadBest"))||0;
+
+let playing=false;
+let locked=false;
+
+let taskType="";
+
+let canPressNow=false;
+
+let clicks=0;
+
+let target=0;
+
+let correctParity="";
+let correctColor="";
+
+let timerID=null;
+let delayID=null;
+let moveID=null;
+
+let audio=null;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $=id=>document.getElementById(id);
+
+const main=$("mainButton");
+
+const odd=$("oddBtn");
+const even=$("evenBtn");
+
+const red=$("redBtn");
+const green=$("greenBtn");
+
+const targetColor=$("colorTarget");
+
+
+/* =========================================================
+   TRANSLATION
+========================================================= */
+
+function t(key){
+
+    return LANG[lang][key] ||
+           LANG.en[key] ||
+           key;
+}
+
+
+/* =========================================================
+   APPLY LANGUAGE
+========================================================= */
+
+function applyLanguage(){
+
+    $("langBtn").textContent=
+        "🌐 "+t("code");
+
+    $("levelLabel").textContent=
+        t("level");
+
+    $("startBtn").textContent=
+        t("start");
+
+    $("actionBtn").textContent=
+        t("again");
+
+    $("statLevels").textContent=
+        t("levels");
+
+    $("statLives").textContent=
+        t("lives");
+
+    $("statMode").textContent=
+        t("hard");
+
+    $("tipText").textContent=
+        t("survive");
+
+    odd.textContent=t("odd");
+    even.textContent=t("even");
+
+    red.textContent=t("red");
+    green.textContent=t("green");
+}
+
+
+/* =========================================================
+   LANGUAGE MENU
+========================================================= */
+
+$("langBtn").onclick=e=>{
+
+    e.stopPropagation();
+
+    $("langMenu").classList.toggle("show");
+
+};
+
+document.querySelectorAll(".langOption")
+.forEach(btn=>{
+
+    btn.onclick=e=>{
+
+        e.stopPropagation();
+
+        lang=btn.dataset.lang;
+
+        localStorage.setItem(
+            "overloadLang",
+            lang
+        );
+
+        $("langMenu").classList.remove("show");
+
+        applyLanguage();
+
+    };
+
+});
+
+
+document.addEventListener("click",()=>{
+
+    $("langMenu").classList.remove("show");
+
+});
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+function sound(
+    freq=500,
+    time=.06,
+    type="sine"
+){
+
+    try{
+
+        if(!audio){
+
+            audio=new(
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        }
+
+        if(audio.state==="suspended")
+            audio.resume();
+
+        const osc=audio.createOscillator();
+
+        const gain=audio.createGain();
+
+        osc.type=type;
+
+        osc.frequency.value=freq;
+
+        gain.gain.setValueAtTime(
+            .055,
+            audio.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audio.currentTime+time
+        );
+
+        osc.connect(gain);
+
+        gain.connect(audio.destination);
+
+        osc.start();
+
+        osc.stop(
+            audio.currentTime+time
+        );
+
+    }catch(e){}
+
+}
+
+
+function vibrate(pattern){
+
+    try{
+
+        if(navigator.vibrate)
+            navigator.vibrate(pattern);
+
+    }catch(e){}
+
+}
+
+
+/* =========================================================
+   UI
+========================================================= */
+
+function update(){
+
+    $("level").textContent=level;
+
+    $("coins").textContent=coins;
+
+    let hearts="";
+
+    for(let i=0;i<3;i++){
+
+        hearts+=
+            i<lives
+            ?"❤️"
+            :"🖤";
+
+    }
+
+    $("lives").textContent=hearts;
+}
+
+
+function clearTimers(){
+
+    clearInterval(timerID);
+    clearTimeout(delayID);
+    clearInterval(moveID);
+
+    timerID=null;
+    delayID=null;
+    moveID=null;
+}
+
+
+function hideControls(){
+
+    main.style.display="none";
+
+    odd.style.display="none";
+    even.style.display="none";
+
+    red.style.display="none";
+    green.style.display="none";
+
+    targetColor.style.display="none";
+
+    main.style.left="50%";
+    main.style.top="50%";
+}
+
+
+function timer(seconds,onTimeout){
+
+    clearInterval(timerID);
+
+    const start=performance.now();
+
+    const duration=seconds*1000;
+
+    $("timer").style.width="100%";
+
+    timerID=setInterval(()=>{
+
+        const percent=Math.max(
+            0,
+            100-
+            (
+                (performance.now()-start)/
+                duration
+            )*100
+        );
+
+        $("timer").style.width=
+            percent+"%";
+
+        if(percent<=0){
+
+            clearInterval(timerID);
+
+            timerID=null;
+
+            if(onTimeout)
+                onTimeout();
+
+        }
+
+    },20);
+
+}
+
+
+function good(){
+
+    const f=$("flash");
+
+    f.className="";
+
+    void f.offsetWidth;
+
+    f.className="goodFlash";
+}
+
+
+function bad(){
+
+    const f=$("flash");
+
+    f.className="";
+
+    void f.offsetWidth;
+
+    f.className="badFlash";
+}
+
+
+function comboUp(){
+
+    combo++;
+
+    if(combo>=2){
+
+        const el=$("combo");
+
+        el.textContent=
+            t("combo")+" ×"+combo;
+
+        el.className="";
+
+        void el.offsetWidth;
+
+        el.className="comboAnim";
+
+    }
+
+}
+
+
+function comboReset(){
+
+    combo=0;
+}
+
+
+function moveMain(){
+
+    main.style.left=
+        (16+Math.random()*68)+"%";
+
+    main.style.top=
+        (18+Math.random()*64)+"%";
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+function success(){
+
+    if(locked)
+        return;
+
+    locked=true;
+
+    clearTimers();
+
+    canPressNow=false;
+
+    comboUp();
+
+    const reward=
+        10+
+        Math.min(combo*3,30);
+
+    score+=reward;
+
+    coins+=reward;
+
+    if(score>best)
+        best=score;
+
+    localStorage.setItem(
+        "overloadCoins",
+        coins
+    );
+
+    localStorage.setItem(
+        "overloadBest",
+        best
+    );
+
+    good();
+
+    vibrate(18);
+
+    sound(700,.06);
+
+    $("status").textContent=
+        "+"+reward+" 🪙";
+
+    update();
+
+    setTimeout(()=>{
+
+        if(level>=30){
+
+            finish();
+
+            return;
+
+        }
+
+        level++;
+
+        locked=false;
+
+        load();
+
+    },400);
+
+}
+
+
+/* =========================================================
+   FAIL
+========================================================= */
+
+function fail(message){
+
+    if(locked)
+        return;
+
+    locked=true;
+
+    clearTimers();
+
+    canPressNow=false;
+
+    comboReset();
+
+    lives--;
+
+    bad();
+
+    vibrate([70,30,70]);
+
+    sound(120,.16,"sawtooth");
+
+    $("status").textContent=message;
+
+    update();
+
+    if(lives<=0){
+
+        setTimeout(
+            gameOver,
+            400
+        );
+
+    }else{
+
+        setTimeout(()=>{
+
+            locked=false;
+
+            load();
+
+        },450);
+
+    }
+
+}
+
+
+/* =========================================================
+   LEVEL 1
+========================================================= */
+
+function taskPress(){
+
+    taskType="PRESS";
+
+    main.style.display="block";
+
+    main.textContent=t("press");
+
+    $("instruction").textContent=t("press");
+
+    timer(
+        2.5,
+        ()=>fail(t("time"))
+    );
+}
+
+
+/* =========================================================
+   LEVEL 2
+========================================================= */
+
+function taskThreeClicks(){
+
+    taskType="THREE_CLICKS";
+
+    clicks=0;
+
+    main.style.display="block";
+
+    main.textContent="0 / 3";
+
+    $("instruction").textContent=
+        "3× "+t("press");
+
+    timer(
+        2.2,
+        ()=>fail(t("time"))
+    );
+}
+
+
+/* =========================================================
+   WAIT TASK
+========================================================= */
+
+function taskWait(){
+
+    taskType="WAIT";
+
+    canPressNow=false;
+
+    main.style.display="block";
+
+    main.textContent=t("wait");
+
+    $("instruction").textContent=t("wait");
+
+    $("sub").textContent="";
+
+    /*
+       IMPORTANT:
+
+       During this period:
+       canPressNow = false
+
+       Any touch = FAIL
+    */
+
+    timer(
+        2.3,
+        ()=>fail(t("time"))
+    );
+
+    delayID=setTimeout(()=>{
+
+        if(locked)
+            return;
+
+        canPressNow=true;
+
+        main.textContent=t("press");
+
+        $("instruction").textContent=t("now");
+
+        sound(850,.08);
+
+    },850);
+
+}
+
+
+/* =========================================================
+   ODD / EVEN
+========================================================= */
+
+function taskParity(){
+
+    taskType="PARITY";
+
+    target=
+        Math.floor(Math.random()*90)+10;
+
+    correctParity=
+        target%2===0
+        ?"EVEN"
+        :"ODD";
+
+    odd.style.display="block";
+
+    even.style.display="block";
+
+    $("instruction").textContent=
+        t("oddEven");
+
+    $("sub").textContent=target;
+
+    timer(
+        1.8,
+        ()=>fail(t("time"))
+    );
+}
+
+
+/* =========================================================
+   MEMORY
+========================================================= */
+
+function taskMemory(){
+
+    taskType="MEMORY";
+
+    target=
+        3+
+        Math.floor(Math.random()*5);
+
+    clicks=0;
+
+    main.style.display="block";
+
+    $("instruction").textContent=
+        t("memorize");
+
+    main.textContent=target;
+
+    timer(
+        .7,
+        ()=>fail(t("time"))
+    );
+
+    delayID=setTimeout(()=>{
+
+        if(locked)
+            return;
+
+        $("instruction").textContent=
+            t("press");
+
+        main.textContent="0";
+
+        timer(
+            1.35,
+            ()=>fail(t("time"))
+        );
+
+    },500);
+
+}
+
+
+/* =========================================================
+   MOVING
+========================================================= */
+
+function taskMoving(){
+
+    taskType="MOVING";
+
+    main.style.display="block";
+
+    main.textContent=t("tap");
+
+    $("instruction").textContent=
+        t("tap");
+
+    moveMain();
+
+    timer(
+        1.9,
+        ()=>fail(t("time"))
+    );
+
+    moveID=setInterval(()=>{
+
+        if(
+            !locked &&
+            taskType==="MOVING"
+        ){
+
+            moveMain();
+
+        }
+
+    },210);
+
+}
+
+
+/* =========================================================
+   DON'T PRESS
+========================================================= */
+
+function taskDontPress(){
+
+    taskType="DONT";
+
+    main.style.display="block";
+
+    main.textContent=t("press");
+
+    $("instruction").textContent=
+        t("dont");
+
+    /*
+       DO NOT TOUCH.
+       Survive until timer reaches zero.
+    */
+
+    timer(
+        1.7,
+        ()=>{
+
+            if(!locked)
+                success();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   COLOR
+========================================================= */
+
+function taskColor(){
+
+    taskType="COLOR";
+
+    red.style.display="block";
+
+    green.style.display="block";
+
+    targetColor.style.display="block";
+
+    correctColor=
+        Math.random()<.5
+        ?"RED"
+        :"GREEN";
+
+    targetColor.className=
+        correctColor==="RED"
+        ?"targetRed"
+        :"targetGreen";
+
+    $("instruction").textContent=
+        t("match");
+
+    $("sub").textContent="";
+
+    timer(
+        1.7,
+        ()=>fail(t("time"))
+    );
+
+}
+
+
+/* =========================================================
+   QUICK MEMORY
+========================================================= */
+
+function taskQuickMemory(){
+
+    taskType="QUICK_MEMORY";
+
+    target=
+        5+
+        Math.floor(Math.random()*4);
+
+    clicks=0;
+
+    main.style.display="block";
+
+    $("instruction").textContent=
+        t("memorize");
+
+    main.textContent=target;
+
+    timer(
+        .55,
+        ()=>fail(t("time"))
+    );
+
+    delayID=setTimeout(()=>{
+
+        if(locked)
+            return;
+
+        $("instruction").textContent=
+            t("press");
+
+        main.textContent="0";
+
+        timer(
+            1.2,
+            ()=>fail(t("time"))
+        );
+
+    },380);
+
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+function taskFinal(){
+
+    taskType="FINAL";
+
+    target=
+        7+
+        Math.floor(Math.random()*3);
+
+    clicks=0;
+
+    main.style.display="block";
+
+    $("instruction").textContent=
+        t("final");
+
+    main.textContent=target;
+
+    timer(
+        .6,
+        ()=>fail(t("time"))
+    );
+
+    delayID=setTimeout(()=>{
+
+        if(locked)
+            return;
+
+        $("instruction").textContent=
+            t("final");
+
+        main.textContent=
+            "0 / "+target;
+
+        timer(
+            1.5,
+            ()=>fail(t("time"))
+        );
+
+        moveID=setInterval(()=>{
+
+            if(
+                !locked &&
+                taskType==="FINAL"
+            ){
+
+                moveMain();
+
+            }
+
+        },170);
+
+    },380);
+
+}
+
+
+/* =========================================================
+   LEVEL LOADER
+========================================================= */
+
+function load(){
+
+    clearTimers();
+
+    hideControls();
+
+    canPressNow=false;
+
+    taskType="";
+
+    $("instruction").textContent="";
+
+    $("sub").textContent="";
+
+    $("status").textContent="";
+
+    update();
+
+    switch(level){
+
+        case 1:
+            taskPress();
+            break;
+
+        case 2:
+            taskThreeClicks();
+            break;
+
+        case 3:
+            taskWait();
+            break;
+
+        case 4:
+            taskParity();
+            break;
+
+        case 5:
+            taskMemory();
+            break;
+
+        case 6:
+            taskMoving();
+            break;
+
+        case 7:
+            taskWait();
+            break;
+
+        case 8:
+            taskDontPress();
+            break;
+
+        case 9:
+            taskColor();
+            break;
+
+        case 10:
+            taskMemory();
+            break;
+
+        case 11:
+            taskDontPress();
+            break;
+
+        case 12:
+            taskQuickMemory();
+            break;
+
+        case 13:
+            taskParity();
+            break;
+
+        case 14:
+            taskMoving();
+            break;
+
+        case 15:
+            taskMemory();
+            break;
+
+        case 16:
+            taskColor();
+            break;
+
+        case 17:
+            taskDontPress();
+            break;
+
+        case 18:
+            taskMemory();
+            break;
+
+        case 19:
+            taskMoving();
+            break;
+
+        case 20:
+            taskMemory();
+            break;
+
+        case 21:
+            taskParity();
+            break;
+
+        case 22:
+            taskDontPress();
+            break;
+
+        case 23:
+            taskColor();
+            break;
+
+        case 24:
+            taskMemory();
+            break;
+
+        case 25:
+            taskWait();
+            break;
+
+        case 26:
+            taskColor();
+            break;
+
+        case 27:
+            taskMemory();
+            break;
+
+        case 28:
+            taskMoving();
+            break;
+
+        case 29:
+            taskDontPress();
+            break;
+
+        case 30:
+            taskFinal();
+            break;
+    }
+}
+
+
+/* =========================================================
+   MAIN BUTTON
+========================================================= */
+
+main.addEventListener(
+"pointerdown",
+e=>{
+
+    e.preventDefault();
+
+    if(!playing || locked)
+        return;
+
+    switch(taskType){
+
+        case "PRESS":
+
+            success();
+
+            break;
+
+
+        case "THREE_CLICKS":
+
+            clicks++;
+
+            main.textContent=
+                clicks+" / 3";
+
+            if(clicks===3){
+
+                success();
+
+            }else if(clicks>3){
+
+                fail(t("tooMany"));
+
+            }
+
+            break;
+
+
+        case "WAIT":
+
+            /*
+               THE CRITICAL FIX:
+
+               The button only works after
+               canPressNow becomes TRUE.
+            */
+
+            if(canPressNow){
+
+                success();
+
+            }else{
+
+                fail(t("early"));
+
+            }
+
+            break;
+
+
+        case "MEMORY":
+
+            clicks++;
+
+            main.textContent=clicks;
+
+            if(clicks===target){
+
+                success();
+
+            }else if(clicks>target){
+
+                fail(t("tooMany"));
+
+            }
+
+            break;
+
+
+        case "MOVING":
+
+            success();
+
+            break;
+
+
+        case "DONT":
+
+            fail(t("wrong"));
+
+            break;
+
+
+        case "QUICK_MEMORY":
+
+            clicks++;
+
+            main.textContent=clicks;
+
+            if(clicks===target){
+
+                success();
+
+            }else if(clicks>target){
+
+                fail(t("tooMany"));
+
+            }
+
+            break;
+
+
+        case "FINAL":
+
+            clicks++;
+
+            main.textContent=
+                clicks+" / "+target;
+
+            if(clicks===target){
+
+                success();
+
+            }else if(clicks>target){
+
+                fail(t("tooMany"));
+
+            }
+
+            break;
+
+    }
+
+});
+
+
+/* =========================================================
+   ODD
+========================================================= */
+
+odd.addEventListener(
+"pointerdown",
+e=>{
+
+    e.preventDefault();
+
+    if(!playing || locked)
+        return;
+
+    if(taskType!=="PARITY")
+        return;
+
+    if(correctParity==="ODD"){
+
+        success();
+
+    }else{
+
+        fail(t("wrong"));
+
+    }
+
+});
+
+
+/* =========================================================
+   EVEN
+========================================================= */
+
+even.addEventListener(
+"pointerdown",
+e=>{
+
+    e.preventDefault();
+
+    if(!playing || locked)
+        return;
+
+    if(taskType!=="PARITY")
+        return;
+
+    if(correctParity==="EVEN"){
+
+        success();
+
+    }else{
+
+        fail(t("wrong"));
+
+    }
+
+});
+
+
+/* =========================================================
+   RED
+========================================================= */
+
+red.addEventListener(
+"pointerdown",
+e=>{
+
+    e.preventDefault();
+
+    if(!playing || locked)
+        return;
+
+    if(taskType!=="COLOR")
+        return;
+
+    if(correctColor==="RED"){
+
+        success();
+
+    }else{
+
+        fail(t("wrong"));
+
+    }
+
+});
+
+
+/* =========================================================
+   GREEN
+========================================================= */
+
+green.addEventListener(
+"pointerdown",
+e=>{
+
+    e.preventDefault();
+
+    if(!playing || locked)
+        return;
+
+    if(taskType!=="COLOR")
+        return;
+
+    if(correctColor==="GREEN"){
+
+        success();
+
+    }else{
+
+        fail(t("wrong"));
+
+    }
+
+});
+
+
+/* =========================================================
+   START
+========================================================= */
+
+$("startBtn").onclick=()=>{
+
+    playing=true;
+
+    /*
+       Hide entire start screen.
+
+       This also removes the language button
+       from the game screen.
+    */
+
+    $("startScreen").style.display="none";
+
+    $("langMenu").classList.remove("show");
+
+    $("overlay").classList.remove("show");
+
+    level=1;
+
+    lives=3;
+
+    score=0;
+
+    combo=0;
+
+    locked=false;
+
+    taskType="";
+
+    canPressNow=false;
+
+    sound(500,.08);
+
+    load();
+
+};
+
+
+/* =========================================================
+   GAME OVER
+========================================================= */
+
+function gameOver(){
+
+    clearTimers();
+
+    canPressNow=false;
+
+    $("resultTitle").textContent=
+        t("gameOver");
+
+    $("resultText").innerHTML=
+        t("lost")+
+        "<br><br>"+
+        t("score")+
+        ": <b>"+
+        score+
+        "</b><br>"+
+        t("best")+
+        ": <b>"+
+        best+
+        "</b><br>"+
+        t("coins")+
+        ": <b>"+
+        coins+
+        "</b>";
+
+    $("progress").textContent=
+        t("level")+" "+level+"/30";
+
+    $("overlay").classList.add("show");
+
+}
+
+
+/* =========================================================
+   COMPLETE
+========================================================= */
+
+function finish(){
+
+    clearTimers();
+
+    canPressNow=false;
+
+    $("resultTitle").textContent=
+        t("master");
+
+    $("resultText").innerHTML=
+        t("complete")+
+        "<br><br>"+
+        t("score")+
+        ": <b>"+
+        score+
+        "</b><br>"+
+        t("best")+
+        ": <b>"+
+        best+
+        "</b><br>"+
+        t("coins")+
+        ": <b>"+
+        coins+
+        "</b>";
+
+    $("progress").textContent=
+        "OVERLOAD V18.8";
+
+    $("overlay").classList.add("show");
+
+}
+
+
+/* =========================================================
+   PLAY AGAIN
+========================================================= */
+
+$("actionBtn").onclick=()=>{
+
+    $("overlay").classList.remove("show");
+
+    level=1;
+
+    lives=3;
+
+    score=0;
+
+    combo=0;
+
+    locked=false;
+
+    taskType="";
+
+    canPressNow=false;
+
+    load();
+
+};
+
+
+/* =========================================================
+   PREVENT CONTEXT MENU
+========================================================= */
+
+document.addEventListener(
+"contextmenu",
+e=>e.preventDefault()
+);
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+applyLanguage();
+
+update();
+
+</script>
+
+</body>
+</html>
